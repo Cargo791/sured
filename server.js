@@ -40,10 +40,19 @@ app.post("/api/track", async (req, res) => {
     }
 
     return res.json(result.rows[0]);
-  } catch (err) {
-    console.error("Database error:", err);
-    return res.status(500).json({ message: "Database error" });
-  }
+  }catch (err) {
+  console.error("TRACKING DATABASE ERROR:", {
+    message: err.message,
+    code: err.code,
+    detail: err.detail,
+    table: err.table,
+    column: err.column
+  });
+
+  return res.status(500).json({
+    message: "Database error"
+  });
+}
 });
 
 // ✅ ADD / UPDATE TRACKING (UPSERT)
