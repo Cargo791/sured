@@ -97,13 +97,13 @@ app.post("/api/add", async (req, res) => {
       )
       VALUES (
         $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15
-      )
-      ON CONFLICT (tracking_id)
-      DO UPDATE SET
-        status = EXCLUDED.status,
-        location = EXCLUDED.location,
-        eta = EXCLUDED.eta,
-        last_scan_time = EXCLUDED.last_scan_time
+      )ON CONFLICT (tracking_id)
+DO UPDATE SET
+  status = EXCLUDED.status,
+  location = EXCLUDED.location,
+  eta = EXCLUDED.eta,
+  last_scan_time = EXCLUDED.last_scan_time,
+  location_date = EXCLUDED.location_date
       `,
       [
         tracking_id.toUpperCase(),
